@@ -22,6 +22,9 @@ def main():
             
         # clear the screen
         screen.fill("black")
+        
+        # update player state
+        player_ship.update(dt)
 
         # draw everything
         player_ship.draw(screen)
