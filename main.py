@@ -2,6 +2,8 @@ import pygame
 from constants import *
 from player import *
 
+
+
 def main():
     print("Starting asteroids!")
     print(f"Screen width: {SCREEN_WIDTH}")
@@ -12,6 +14,11 @@ def main():
     dt = 0
     x = SCREEN_WIDTH / 2
     y = SCREEN_HEIGHT / 2
+    
+
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+    Player.containers = (updatable, drawable)
     player_ship = Player(x, y)
 
     # Game Loop
@@ -24,10 +31,11 @@ def main():
         screen.fill("black")
         
         # update player state
-        player_ship.update(dt)
+        updatable.update(dt)
 
         # draw everything
-        player_ship.draw(screen)
+        for item in drawable:
+            item.draw(screen)
 
         # update display
         pygame.display.flip()
