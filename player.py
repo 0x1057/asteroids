@@ -1,5 +1,6 @@
 import pygame
 from circleshape import *
+from shot import *
 from constants import PLAYER_RADIUS, PLAYER_TURN_SPEED, PLAYER_SPEED
 
 class Player(CircleShape):
@@ -20,8 +21,7 @@ class Player(CircleShape):
     
     # drawing the player
     def draw(self, screen):
-        new_triangle = self.triangle()
-        pygame.draw.polygon(screen, "white", new_triangle, width=2)
+        pygame.draw.polygon(screen, "white", self.triangle(), width=2)
 
     # handle rotating ship
     def rotate(self, dt):
@@ -32,6 +32,9 @@ class Player(CircleShape):
         forward = pygame.Vector2(0, 1).rotate(self.rotation)
         self.position += forward * PLAYER_SPEED * dt
 
+    # handle ship firing bullets
+    def shoot(self):
+        shot = Shot()
 
     # handle updating ship's state from input
     def update(self, dt):
@@ -45,3 +48,5 @@ class Player(CircleShape):
             self.move(dt)
         if keys[pygame.K_s]:
             self.move(-dt)
+        if keys[pygame.K_SPACE]:
+            self.shoot()
